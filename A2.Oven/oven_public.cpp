@@ -11,46 +11,51 @@
 #include <string>
 
 //---COven---------------------------------------------------------------------
-// COven holds an oven's name and current temperature. Both members are public,
-// so any code can read or change them directly.
 class COven
 {
   public:
-    std::string mName;       // the oven's label, e.g. "Reflow oven"
-    int mTemperatureC;       // current temperature, in whole degrees Celsius
+    std::string mName;
+    int mTemperatureTenthsC;
 };
 
 //---main----------------------------------------------------------------------
-// Sets up two ovens, warms each in one-degree steps, checks each for
-// overheating, and reports both. Every step reaches into the ovens' data
-// directly.
 int main()
 {
   COven ReflowOven;
   ReflowOven.mName = "Reflow oven";
-  ReflowOven.mTemperatureC = 20;            // start at room temperature
+  ReflowOven.mTemperatureTenthsC = 200;
 
   COven CuringOven;
   CuringOven.mName = "Curing oven";
-  CuringOven.mTemperatureC = 20;            // start at room temperature
+  CuringOven.mTemperatureTenthsC = 200;
 
   for( int i = 0; i < 5; ++i )
-    ReflowOven.mTemperatureC += 1;          // warm up by one degree
+  {
+    ReflowOven.mTemperatureTenthsC += 10;
+  }
 
   for( int i = 0; i < 8; ++i )
-    CuringOven.mTemperatureC += 1;          // warm up by one degree
+  {
+    CuringOven.mTemperatureTenthsC += 10;
+  }
 
-  if( ReflowOven.mTemperatureC >= 250 )     // overheating limit is 250 C
+  if( ReflowOven.mTemperatureTenthsC >= 2500 )
+  {
     std::cout << "Warning: oven is overheating!" << std::endl;
+  }
 
-  if( CuringOven.mTemperatureC >= 250 )     // overheating limit is 250 C
+  if( CuringOven.mTemperatureTenthsC >= 2500 )
+  {
     std::cout << "Warning: oven is overheating!" << std::endl;
+  }
 
   std::cout << ReflowOven.mName << " is at "
-            << ReflowOven.mTemperatureC << "C" << std::endl;
+            << ReflowOven.mTemperatureTenthsC / 10
+            << "C" << std::endl;
 
   std::cout << CuringOven.mName << " is at "
-            << CuringOven.mTemperatureC << "C" << std::endl;
+            << CuringOven.mTemperatureTenthsC / 10
+            << "C" << std::endl;
 
   return 0;
 }
